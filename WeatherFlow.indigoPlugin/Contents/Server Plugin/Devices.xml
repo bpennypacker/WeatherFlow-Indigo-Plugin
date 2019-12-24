@@ -1,0 +1,531 @@
+<?xml version="1.0"?>
+<!-- See https://weatherflow.github.io/SmartWeather/api/ for details on the Smart Weather API -->
+<Devices>
+    <Device type="custom" id="SmartWeatherAirWS">
+        <Name>Smart Weather Air Websocket Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" Value="0">
+                <Label>Smart Weather AIR Websocket Device:</Label>
+                <List class="self" filter="AR" method="getWebsocketDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="pressure" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Station Pressure</TriggerLabel>
+                <ControlPageLabel>Station Pressure</ControlPageLabel>
+            </State>
+            <State id="temperature" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Air Temperature</TriggerLabel>
+                <ControlPageLabel>Air Temperature</ControlPageLabel>
+            </State>
+            <State id="relative_humidity" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Relative Humidity</TriggerLabel>
+                <ControlPageLabel>Relative Humidity</ControlPageLabel>
+            </State>
+            <State id="lightning_strike_count" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Lightning Strike Count</TriggerLabel>
+                <ControlPageLabel>Lightning Strike Count</ControlPageLabel>
+            </State>
+            <State id="lightning_strike_average_distance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Lightning Strike Average Distance</TriggerLabel>
+                <ControlPageLabel>Lightning Strike Average Distance</ControlPageLabel>
+            </State>
+            <State id="battery" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Battery Volts</TriggerLabel>
+                <ControlPageLabel>Battery Volts</ControlPageLabel>
+            </State>
+            <State id="report_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Report Interval</TriggerLabel>
+                <ControlPageLabel>Report Interval</ControlPageLabel>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+
+    <Device type="custom" id="SmartWeatherSkyWS">
+        <Name>Smart Weather Sky Websocket Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" defaultValue="0">
+                <Label>Smart Weather SKY Websocket Device:</Label>
+                <List class="self" filter="SK" method="getWebsocketDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="illuminance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Illuminance</TriggerLabel>
+                <ControlPageLabel>Illuminance</ControlPageLabel>
+            </State>
+            <State id="uv" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>UV</TriggerLabel>
+                <ControlPageLabel>UV</ControlPageLabel>
+            </State>
+            <State id="rain_accumulated" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Rain Accumulated</TriggerLabel>
+                <ControlPageLabel>Rain Accumulated</ControlPageLabel>
+            </State>
+            <State id="wind_lull" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Lull</TriggerLabel>
+                <ControlPageLabel>Wind Lull</ControlPageLabel>
+            </State>
+            <State id="wind_average" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Average</TriggerLabel>
+                <ControlPageLabel>Wind Average</ControlPageLabel>
+            </State>
+            <State id="wind_gust" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Gust</TriggerLabel>
+                <ControlPageLabel>Wind Gust</ControlPageLabel>
+            </State>
+            <State id="wind_direction" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Direction</TriggerLabel>
+                <ControlPageLabel>Wind Direction</ControlPageLabel>
+            </State>
+            <State id="battery" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Battery Volts</TriggerLabel>
+                <ControlPageLabel>Battery Volts</ControlPageLabel>
+            </State>
+            <State id="report_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Report Interval</TriggerLabel>
+                <ControlPageLabel>Report Interval</ControlPageLabel>
+            </State>
+            <State id="solar_radiation" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Solar Radiation</TriggerLabel>
+                <ControlPageLabel>Solar Radiation</ControlPageLabel>
+            </State>
+            <State id="daily_rain_accumulation" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Local Daily Rain Accumulation</TriggerLabel>
+                <ControlPageLabel>Local Daily Rain Accumulation</ControlPageLabel>
+            </State>
+            <State id="precipitation_type" readonly="YES">
+                <ValueType>
+                    <List>
+                        <Option value="none">None</Option>
+                        <Option value="rain">Rain</Option>
+                        <Option value="hail">Hail</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Precipitation Type</TriggerLabel>
+                <TriggerLabelPrefix>Precipitation changed to</TriggerLabelPrefix>
+                <ControlPageLabel>Precipitation Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Precipitation is</ControlPageLabelPrefix>
+            </State>
+            <State id="wind_sample_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Sample Interval</TriggerLabel>
+                <ControlPageLabel>Wind Sample Interval</ControlPageLabel>
+            </State>
+            <State id="rain_accumulated_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Rain Accumulated Final</TriggerLabel>
+                <ControlPageLabel>Rain Accumulated Final</ControlPageLabel>
+            </State>
+            <State id="daily_rain_accumulation_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Daily Rain Accumulation Final</TriggerLabel>
+                <ControlPageLabel>Daily Rain Accumulation Final</ControlPageLabel>
+            </State>
+            <State id="precipitation_analysis_type" readonly="YES">
+                <ValueType>
+                    <List>
+                        <Option value="none">None</Option>
+                        <Option value="on">Rain Check with user display on</Option>
+                        <Option value="off">Rain Check with user display off</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Precipitation Analysis Type</TriggerLabel>
+                <TriggerLabelPrefix>Precipitation Analysis Type changed to</TriggerLabelPrefix>
+                <ControlPageLabel>Precipitation Analysis Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Precipitation Analysis Type is</ControlPageLabelPrefix>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+            <State id="last_precip" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="last_precip_formatted" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="raw_precip" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Precipitation Data</TriggerLabel>
+                <ControlPageLabel>Raw Precipitation Data</ControlPageLabel>
+            </State>
+            <State id="last_strike" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Time of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Time of last lightning strike</ControlPageLabel>
+            </State>
+            <State id="last_srike_formatted" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time of last lighting strike</ControlPageLabel>
+            </State>
+            <State id="strike_distance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Distance to last lightning strike</TriggerLabel>
+                <ControlPageLabel>Distance to last lightning strike</ControlPageLabel>
+            </State>
+            <State id="strike_energy" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Energy of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Energy of last lightning strike</ControlPageLabel>
+            </State>
+            <State id="raw_strike" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw lightning strike data</TriggerLabel>
+                <ControlPageLabel>Raw lightning strike data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+    <Device type="custom" id="SmartWeatherRapidWindWS">
+        <Name>Smart Weather Rapid Wind Websocket Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" defaultValue="0">
+                <Label>Smart Weather SKY Device for Rapid Wind monitoring:</Label>
+                <List class="self" filter="SK" method="getWebsocketDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="wind_speed" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Speed</TriggerLabel>
+                <ControlPageLabel>Wind Speed</ControlPageLabel>
+            </State>
+            <State id="wind_direction" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Direction</TriggerLabel>
+                <ControlPageLabel>Wind Direction</ControlPageLabel>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+    <Device type="custom" id="SmartWeatherAirUDP">
+        <Name>Smart Weather Air UDP Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" Value="0">
+                <Label>Smart Weather AIR UDP Device Serial Number:</Label>
+                <List class="self" filter="AR" method="getUDPDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="pressure" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Station Pressure</TriggerLabel>
+                <ControlPageLabel>Station Pressure</ControlPageLabel>
+            </State>
+            <State id="temperature" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Air Temperature</TriggerLabel>
+                <ControlPageLabel>Air Temperature</ControlPageLabel>
+            </State>
+            <State id="relative_humidity" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Relative Humidity</TriggerLabel>
+                <ControlPageLabel>Relative Humidity</ControlPageLabel>
+            </State>
+            <State id="lightning_strike_count" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Lightning Strike Count</TriggerLabel>
+                <ControlPageLabel>Lightning Strike Count</ControlPageLabel>
+            </State>
+            <State id="lightning_strike_average_distance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Lightning Strike Average Distance</TriggerLabel>
+                <ControlPageLabel>Lightning Strike Average Distance</ControlPageLabel>
+            </State>
+            <State id="battery" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Battery Volts</TriggerLabel>
+                <ControlPageLabel>Battery Volts</ControlPageLabel>
+            </State>
+            <State id="report_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Report Interval</TriggerLabel>
+                <ControlPageLabel>Report Interval</ControlPageLabel>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+    <Device type="custom" id="SmartWeatherSkyUDP">
+        <Name>Smart Weather Sky UDP Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" defaultValue="0">
+                <Label>Smart Weather SKY UDP Device:</Label>
+                <List class="self" filter="SK" method="getUDPDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="illuminance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Illuminance</TriggerLabel>
+                <ControlPageLabel>Illuminance</ControlPageLabel>
+            </State>
+            <State id="uv" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>UV</TriggerLabel>
+                <ControlPageLabel>UV</ControlPageLabel>
+            </State>
+            <State id="rain_accumulated" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Rain Accumulated</TriggerLabel>
+                <ControlPageLabel>Rain Accumulated</ControlPageLabel>
+            </State>
+            <State id="wind_lull" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Lull</TriggerLabel>
+                <ControlPageLabel>Wind Lull</ControlPageLabel>
+            </State>
+            <State id="wind_average" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Average</TriggerLabel>
+                <ControlPageLabel>Wind Average</ControlPageLabel>
+            </State>
+            <State id="wind_gust" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Gust</TriggerLabel>
+                <ControlPageLabel>Wind Gust</ControlPageLabel>
+            </State>
+            <State id="wind_direction" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Direction</TriggerLabel>
+                <ControlPageLabel>Wind Direction</ControlPageLabel>
+            </State>
+            <State id="battery" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Battery Volts</TriggerLabel>
+                <ControlPageLabel>Battery Volts</ControlPageLabel>
+            </State>
+            <State id="report_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Report Interval</TriggerLabel>
+                <ControlPageLabel>Report Interval</ControlPageLabel>
+            </State>
+            <State id="solar_radiation" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Solar Radiation</TriggerLabel>
+                <ControlPageLabel>Solar Radiation</ControlPageLabel>
+            </State>
+            <State id="daily_rain_accumulation" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Local Daily Rain Accumulation</TriggerLabel>
+                <ControlPageLabel>Local Daily Rain Accumulation</ControlPageLabel>
+            </State>
+            <State id="precipitation_type" readonly="YES">
+                <ValueType>
+                    <List>
+                        <Option value="none">None</Option>
+                        <Option value="rain">Rain</Option>
+                        <Option value="hail">Hail</Option>
+                        <Option value="rhmix">Rain/Hail Mix</Option>
+                        <Option value="unknown">Unknown</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Precipitation Type</TriggerLabel>
+                <TriggerLabelPrefix>Precipitation changed to</TriggerLabelPrefix>
+                <ControlPageLabel>Precipitation Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Precipitation Type is</ControlPageLabelPrefix>
+            </State>
+            <State id="wind_sample_interval" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Sample Interval</TriggerLabel>
+                <ControlPageLabel>Wind Sample Interval</ControlPageLabel>
+            </State>
+            <State id="rain_accumulated_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Rain Accumulated Final</TriggerLabel>
+                <ControlPageLabel>Rain Accumulated Final</ControlPageLabel>
+            </State>
+            <State id="daily_rain_accumulation_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Daily Rain Accumulation Final</TriggerLabel>
+                <ControlPageLabel>Daily Rain Accumulation Final</ControlPageLabel>
+            </State>
+            <State id="precipitation_analysis_type" readonly="YES">
+                <ValueType>
+                    <List>
+                        <Option value="none">None</Option>
+                        <Option value="on">Rain Check with user display on</Option>
+                        <Option value="off">Rain Check with user display off</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Precipitation Analysis Type</TriggerLabel>
+                <TriggerLabelPrefix>Precipitation Analysis Type changed to</TriggerLabelPrefix>
+                <ControlPageLabel>Precipitation Analysis Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Precipitation Analysis Type is</ControlPageLabelPrefix>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+            <State id="last_precip" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="last_precip_formatted" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="raw_precip" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Precipitation Data</TriggerLabel>
+                <ControlPageLabel>Raw Precipitation Data</ControlPageLabel>
+            </State>
+            <State id="last_strike" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Time of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Time of last lightning strike</ControlPageLabel>
+            </State>
+            <State id="last_srike_formatted" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time of last lighting strike</ControlPageLabel>
+            </State>
+            <State id="strike_distance" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Distance to last lightning strike</TriggerLabel>
+                <ControlPageLabel>Distance to last lightning strike</ControlPageLabel>
+            </State>
+            <State id="strike_energy" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Energy of last lightning strike</TriggerLabel>
+                <ControlPageLabel>Energy of last lightning strike</ControlPageLabel>
+            </State>
+            <State id="raw_strike" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw lightning strike data</TriggerLabel>
+                <ControlPageLabel>Raw lightning strike data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+    <Device type="custom" id="SmartWeatherRapidWindUDP">
+        <Name>Smart Weather Rapid Wind UDP Device</Name>
+        <ConfigUI>
+            <Field type="menu" id="address" defaultValue="0">
+                <Label>Smart Weather SKY Device for Rapid Wind monitoring:</Label>
+                <List class="self" filter="SK" method="getUDPDeviceList" />
+            </Field>
+            <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+        </ConfigUI>
+        <States>
+            <State id="timestamp" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Timestamp</TriggerLabel>
+                <ControlPageLabel>Timestamp</ControlPageLabel>
+            </State>
+            <State id="formatted_datetime" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time</ControlPageLabel>
+            </State>
+            <State id="wind_speed" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Speed</TriggerLabel>
+                <ControlPageLabel>Wind Speed</ControlPageLabel>
+            </State>
+            <State id="wind_direction" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Wind Direction</TriggerLabel>
+                <ControlPageLabel>Wind Direction</ControlPageLabel>
+            </State>
+            <State id="raw_obs" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Observation Data</TriggerLabel>
+                <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+</Devices>

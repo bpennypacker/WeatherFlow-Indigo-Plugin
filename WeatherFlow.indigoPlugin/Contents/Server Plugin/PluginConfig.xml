@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<PluginConfig>
+	<SupportURL>http://bruce.pennypacker.org/TBD/</SupportURL>
+	<Field id="title" type="label" alignText="center" fontColor="blue">
+		<Label>WeatherFlow Smart Weather Plugin Configuration</Label>
+	</Field>
+	<Field id="desc1" type="label">
+		<Label>This Plugin supports two methods of retrieving weather data from WeatherFlow, from WeatherFlow servers via a Websocket and directly from your Smart Weather device via UDP broadcast. These are exposed in Indigo as separate devices and both can be used simultaneously if desired. For more information on these two methods please view the wiki documentation for the Plugin.</Label>
+	</Field>
+	<Field id="sep0" type="separator"/>
+	<Field id="ws_title" type="label" alignText="center" fontColor="blue">
+		<Label>Websocket Configuration</Label>
+	</Field>
+        <Field id="desc2" type="label">
+                <Label>To use Websockets you need to know the Station ID Weather Flow has assigned to your station. If you are not sure how to locate this then please view the wiki documentation for the Plugin.</Label>
+        </Field>
+        <Field id="websocketsEnabled" type="checkbox" defaultValue="false">
+            <Label>Enable Websockets:</Label>
+        </Field>
+        <Field id="stationID" type="textfield" enabledBindingId="websocketsEnabled">
+                <Label>WeatherFlow Smart Weather Station ID</Label>
+        </Field>
+        <Field id="stationLabel" type="label" fontColor="blue">
+            <Label>To locate your Station ID please see the instructions in the wiki documentation for the Plugin.</Label>
+        </Field>
+	<Field id="sep1" type="separator"/>
+	<Field id="udp_title" type="label" alignText="center" fontColor="blue">
+		<Label>UDP Broadcast Configuration</Label>
+	</Field>
+        <Field id="UDPEnabled" type="checkbox" defaultValue="false">
+            <Label>Enable Local UDP Broadcast:</Label>
+        </Field>
+	<Field id="sep2" type="separator"/>
+        <Field id="dateFormat" type="textfield" defaultValue="%c">
+            <Label>Directive for date/time formatted states. See https://strftime.org for examples:</Label>
+        </Field>
+	<Field id="sep3" type="separator"/>
+	<Field id="topLabel" type="label" fontColor="darkgray" fontSize="small">
+		<Label>If you are having problems with the plugin (or you are instructed by support), you can enable extra logging in the Event Log window by checking this button. Use with caution.
+		</Label>
+	</Field>
+	<Field id="debug" type="checkbox">
+		<Label>Enable debugging:</Label>
+	</Field>
+	<Field id="sep4" type="separator"/>
+        <Field id="wikiButton" type="button">
+            <Label>Wiki: https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki </Label>
+            <Title>View Wiki</Title>
+            <CallbackMethod>launchWiki</CallbackMethod>
+        </Field>
+</PluginConfig>
