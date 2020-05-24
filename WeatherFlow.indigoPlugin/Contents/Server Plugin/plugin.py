@@ -166,7 +166,7 @@ class WeatherFlowUDPWorker(threading.Thread):
                         self.serial_numbers.append(j['serial_number'])
                         self._debug("added device serial number {}".format(j['serial_number']))
 
-                    if 'type' in j and j['type'] in [ 'obs_air', 'obs_sky', 'rapid_wind' ]:
+                    if 'type' in j and j['type'] in [ 'obs_air', 'obs_sky', 'rapid_wind', 'obs_st' ]:
                         self.queue.put((MSG_UDP, j['serial_number'], msg))
                         self._debug(json.dumps(j, sort_keys=True, indent=4, separators=(',', ': ')))
 
