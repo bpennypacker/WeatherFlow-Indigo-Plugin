@@ -500,6 +500,8 @@ class Plugin(indigo.PluginBase):
     def getWebsocketDeviceList(self, filter="", valuesDict=None, typeId="", targetId=0):
         array = [ ]
 
+        filter_list = filter.split('|')
+
         if self.stationMetadata == None and isInt(self.pluginPrefs['stationID']):
             url = urls['station'].format(self.pluginPrefs['stationID'], api_key)
             self.logger.debug("GET " + url)
@@ -517,7 +519,7 @@ class Plugin(indigo.PluginBase):
             devices = self.stationMetadata['stations'][0]['devices']
 
             for d in devices:
-                if 'device_type' in d and d['device_type'] == filter:
+                if 'device_type' in d and d['device_type'] in filter_list:
                     array.append((d['device_id'], "{} ({})".format(d['device_meta']['name'], d['device_meta']['environment'])))
         except:
             pass

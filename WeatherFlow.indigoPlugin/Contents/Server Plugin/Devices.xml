@@ -231,8 +231,8 @@
         <Name>Smart Weather Rapid Wind Websocket Device</Name>
         <ConfigUI>
             <Field type="menu" id="address" defaultValue="0">
-                <Label>Smart Weather SKY Device for Rapid Wind monitoring:</Label>
-                <List class="self" filter="SK" method="getWebsocketDeviceList" />
+                <Label>Smart Weather Device for Rapid Wind monitoring:</Label>
+                <List class="self" filter="SK|ST" method="getWebsocketDeviceList" />
             </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
         </ConfigUI>
