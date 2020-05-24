@@ -658,6 +658,21 @@
                 <TriggerLabel>Wind Sample Interval</TriggerLabel>
                 <ControlPageLabel>Wind Sample Interval</ControlPageLabel>
             </State>
+            <State id="last_precip" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="last_precip_formatted" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Formatted Date/Time of last precipitation</TriggerLabel>
+                <ControlPageLabel>Formatted Date/Time of last precipitation</ControlPageLabel>
+            </State>
+            <State id="raw_precip" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Raw Precipitation Data</TriggerLabel>
+                <ControlPageLabel>Raw Precipitation Data</ControlPageLabel>
+            </State>
             <State id="battery" readonly="YES">
                 <ValueType>Number</ValueType>
                 <TriggerLabel>Battery Volts</TriggerLabel>
