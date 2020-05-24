@@ -65,6 +65,26 @@ obs_air_map = {
     'report_interval':                   7
 }
 
+obs_tempest_map = {
+    'timestamp' :                         0,
+    'wind_lull':                          1,
+    'wind_average':                       2,
+    'wind_gust':                          3,
+    'wind_direction':                     4,
+    'wind_sample_interval':               5,
+    'pressure':                           6,
+    'temperature':                        7,
+    'relative_humidity':                  8,
+    'illuminance' :                       9,
+    'uv':                                10,
+    'solar_radiation':                   11,
+    'precipitation':                     12,
+    'lightning_strike_average_distance': 14,
+    'lightning_strike_count':            15,
+    'battery':                           16,
+    'report_interval':                   17
+}
+
 rapid_wind_map = {
     'timestamp':                      0,
     'wind_speed':                     1,
@@ -146,7 +166,7 @@ class WeatherFlowUDPWorker(threading.Thread):
                         self.serial_numbers.append(j['serial_number'])
                         self._debug("added device serial number {}".format(j['serial_number']))
 
-                    if 'type' in j and j['type'] in [ 'obs_air', 'obs_sky', 'rapid_wind' ]:
+                    if 'type' in j and j['type'] in [ 'obs_air', 'obs_sky', 'rapid_wind', 'obs_st' ]:
                         self.queue.put((MSG_UDP, j['serial_number'], msg))
                         self._debug(json.dumps(j, sort_keys=True, indent=4, separators=(',', ': ')))
 
@@ -211,7 +231,7 @@ class WeatherFlowWebsocketWorker(threading.Thread):
         # previously being listened to, so start listening again...
         for x in self.devices:
             (d, t) = x.split('-')
-            if t in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS' ]:
+            if t in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS', 'SmartWeatherTempestWS' ]:
                 payload = { "type": "listen_start", "device_id": d, "id": "indigo-{}".format(d) }
             elif devtype == 'SmartWeatherRapidWindWS':
                 payload = { "type": "listen_rapid_start", "device_id": d, "id": "indigo-{}".format(d) }
@@ -261,7 +281,7 @@ class WeatherFlowWebsocketWorker(threading.Thread):
                 self._debug("Error adding device. websocket not ready.")
                 return
         
-        if devtype in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS' ]:
+        if devtype in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS', 'SmartWeatherTempestWS' ]:
             payload = { "type": "listen_start", "device_id": dev, "id": "indigo-{}".format(dev) }
         elif devtype == 'SmartWeatherRapidWindWS':
             payload = { "type": "listen_rapid_start", "device_id": dev, "id": "indigo-{}".format(dev) }
@@ -290,7 +310,7 @@ class WeatherFlowWebsocketWorker(threading.Thread):
                 self._debug("Error adding device. websocket not ready.")
                 return
 
-        if devtype in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS' ]:
+        if devtype in [ 'SmartWeatherAirWS', 'SmartWeatherSkyWS', 'SmartWeatherTempestWS' ]:
             payload = { "type": "listen_stop", "device_id": dev, "id": "indigo-{}".format(dev) }
         elif devtype == 'SmartWeatherRapidWindWS':
             payload = { "type": "listen_rapid_stop", "device_id": dev, "id": "indigo-{}".format(dev) }
@@ -480,6 +500,8 @@ class Plugin(indigo.PluginBase):
     def getWebsocketDeviceList(self, filter="", valuesDict=None, typeId="", targetId=0):
         array = [ ]
 
+        filter_list = filter.split('|')
+
         if self.stationMetadata == None and isInt(self.pluginPrefs['stationID']):
             url = urls['station'].format(self.pluginPrefs['stationID'], api_key)
             self.logger.debug("GET " + url)
@@ -497,7 +519,7 @@ class Plugin(indigo.PluginBase):
             devices = self.stationMetadata['stations'][0]['devices']
 
             for d in devices:
-                if 'device_type' in d and d['device_type'] == filter:
+                if 'device_type' in d and d['device_type'] in filter_list:
                     array.append((d['device_id'], "{} ({})".format(d['device_meta']['name'], d['device_meta']['environment'])))
         except:
             pass
@@ -559,16 +581,24 @@ class Plugin(indigo.PluginBase):
                     self.process_rapid_wind(indigo_dev, data)
 
             elif j['type'] == "evt_precip":
-                dm = "{}-SmartWeatherSky{}".format(token, suffix)
-                if dm in self.dev_map:
-                    indigo_dev = indigo.devices[self.dev_map[dm]]
-                    self.process_evt_precip(indigo_dev, data)
+                for swtype in [ 'SmartWeatherSky', 'SmartWeatherTempest' ] :
+                    dm = "{}-{}{}".format(token, swtype, suffix)
+                    if dm in self.dev_map:
+                        indigo_dev = indigo.devices[self.dev_map[dm]]
+                        self.process_evt_precip(indigo_dev, data)
 
             elif j['type'] == "evt_strike":
-                dm = "{}-SmartWeatherSky{}".format(token, suffix)
+                for swtype in [ 'SmartWeatherSky', 'SmartWeatherTempest' ] :
+                    dm = "{}-{}{}".format(token, swtype, suffix)
+                    if dm in self.dev_map:
+                        indigo_dev = indigo.devices[self.dev_map[dm]]
+                        self.process_evt_strike(indigo_dev, data)
+
+            elif j['type'] == "obs_st":
+                dm = "{}-SmartWeatherTempest{}".format(token, suffix)
                 if dm in self.dev_map:
                     indigo_dev = indigo.devices[self.dev_map[dm]]
-                    self.process_evt_strike(indigo_dev, data)
+                    self.process_obs_tempest(indigo_dev, data)
 
             else:
                 jd = json.dumps(j, sort_keys=True, indent=4, separators=(',', ': '))
@@ -681,6 +711,38 @@ class Plugin(indigo.PluginBase):
         self.last_obs[dev.id] = d
 
     ########################################
+    def process_obs_tempest(self, dev, data):
+
+        d = json.loads(data)
+
+        last = self.last_obs[dev.id]
+
+        for i in obs_tempest_map:
+            idx = obs_tempest_map[i]
+            if idx < len(d['obs'][0]):
+                if last == None or last['obs'][0][obs_tempest_map[i]] != d['obs'][0][obs_tempest_map[i]]:
+                    if i in obs_precision:
+                        dev.updateStateOnServer(i, d['obs'][0][obs_tempest_map[i]], decimalPlaces=obs_precision[i])
+                    else:
+                        dev.updateStateOnServer(i, d['obs'][0][obs_tempest_map[i]])
+
+        # 13 - obs_st precipitation type
+        if last == None or last['obs'][0][13] != d['obs'][0][13]:
+            if d['obs'][0][13] < len(precip_type):
+                pt = precip_type[d['obs'][0][13]]
+            else:
+                pt = "unknown"
+                self.logger.debug("unknown precip type ({})".format(d['obs'][0][12]))
+            dev.updateStateOnServer('precipitation_type', pt)
+
+        dateFormat = self.pluginPrefs["dateFormat"]
+        dev.updateStateOnServer('formatted_datetime', time.strftime(dateFormat, time.localtime(d['obs'][0][0])))
+
+        dev.updateStateOnServer('raw_obs', data)
+
+        self.last_obs[dev.id] = d
+
+    ########################################
     def process_obs_air(self, dev, data):
 
         d = json.loads(data)
@@ -742,7 +804,9 @@ class Plugin(indigo.PluginBase):
 
         d = json.loads(data)
 
-        last = self.last_evt_strike[dev.id]
+        last = None
+        if dev.id in self.last_evt_strike:
+            last = self.last_evt_strike[dev.id]
 
         for i in evt_strike_map:
             idx = evt_strike_map[i]
