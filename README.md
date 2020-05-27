@@ -9,6 +9,13 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.0.3
+Released: 2020-05-27
+
+Added missing values from Tempest Websocket observations.
+
+Added support for undocumented "summary" data by way of dynamic Indigo variables (see wiki for details)
+
 ### Version 0.0.2
 Released: 2020-05-24
 
