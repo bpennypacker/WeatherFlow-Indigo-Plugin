@@ -683,6 +683,29 @@
                 <TriggerLabel>Report Interval</TriggerLabel>
                 <ControlPageLabel>Report Interval</ControlPageLabel>
             </State>
+            <State id="rain_accumulated_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Rain Accumulated Final</TriggerLabel>
+                <ControlPageLabel>Rain Accumulated Final</ControlPageLabel>
+            </State>
+            <State id="daily_rain_accumulation_final" readonly="YES">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Daily Rain Accumulation Final</TriggerLabel>
+                <ControlPageLabel>Daily Rain Accumulation Final</ControlPageLabel>
+            </State>
+            <State id="precipitation_analysis_type" readonly="YES">
+                <ValueType>
+                    <List>
+                        <Option value="none">None</Option>
+                        <Option value="on">Rain Check with user display on</Option>
+                        <Option value="off">Rain Check with user display off</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Precipitation Analysis Type</TriggerLabel>
+                <TriggerLabelPrefix>Precipitation Analysis Type changed to</TriggerLabelPrefix>
+                <ControlPageLabel>Precipitation Analysis Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Precipitation Analysis Type is</ControlPageLabelPrefix>
+            </State>
             <State id="raw_obs" readonly="YES">
                 <ValueType>String</ValueType>
                 <TriggerLabel>Raw Observation Data</TriggerLabel>
