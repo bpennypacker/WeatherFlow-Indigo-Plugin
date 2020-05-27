@@ -82,7 +82,9 @@ obs_tempest_map = {
     'lightning_strike_average_distance': 14,
     'lightning_strike_count':            15,
     'battery':                           16,
-    'report_interval':                   17
+    'report_interval':                   17,
+    'rain_accumulated_final':            18,
+    'daily_rain_accumulation_final':     19,
 }
 
 rapid_wind_map = {
@@ -513,7 +515,7 @@ class Plugin(indigo.PluginBase):
             except Exception as e:
                 self.logger.error(traceback.format_exception(*sys.exc_info()))
                 self.logger.error(str(e))
-            return array
+                return []
 
         try:
             devices = self.stationMetadata['stations'][0]['devices']
@@ -522,7 +524,8 @@ class Plugin(indigo.PluginBase):
                 if 'device_type' in d and d['device_type'] in filter_list:
                     array.append((d['device_id'], "{} ({})".format(d['device_meta']['name'], d['device_meta']['environment'])))
         except:
-            pass
+            self.logger.error(traceback.format_exception(*sys.exc_info()))
+            self.logger.error(str(e))
 
         return array
 
@@ -668,6 +671,27 @@ class Plugin(indigo.PluginBase):
                 break
 
     ########################################
+    def process_summary(self, data):
+        if not 'summary' in data:
+            return
+
+        if 'weatherflow' not in indigo.variables.folders:
+            indigo.variables.folder.create('weatherflow')
+
+        summary = data['summary']
+
+        for s in summary:
+            varname = '{}_{}'.format(data['device_id'], s)
+
+            if varname in indigo.variables:
+                v = indigo.variables[varname]
+                indigo.variable.updateValue(v, str(summary[s]))
+            else:
+                fid = indigo.variables.folders['weatherflow']
+                indigo.variable.create(varname, str(summary[s]), folder=fid)
+
+
+    ########################################
     def process_obs_sky(self, dev, data):
 
         d = json.loads(data)
@@ -684,27 +708,31 @@ class Plugin(indigo.PluginBase):
                        dev.updateStateOnServer(i, d['obs'][0][obs_sky_map[i]])
 
         # precipitation type, index 12
-        if len(d['obs'][0]) > 12:
-            if last == None or last['obs'][0][12] != d['obs'][0][12]:
-                if d['obs'][0][12] < len(precip_type):
-                    pt = precip_type[d['obs'][0][12]]
+        idx = 12
+        if len(d['obs'][0]) > idx:
+            if last == None or last['obs'][0][12] != d['obs'][0][idx]:
+                if d['obs'][0][idx] < len(precip_type):
+                    pt = precip_type[d['obs'][0][idx]]
                 else:
                     pt = "unknown"
-                    self.logger.debug("unknown precip type ({})".format(d['obs'][0][12]))
+                    self.logger.debug("unknown precip type ({})".format(d['obs'][0][idx]))
                 dev.updateStateOnServer('precipitation_type', pt)
 
         # precipitation analysis type, index 16
-        if len(d['obs'][0]) > 16:
-            if last == None or last['obs'][0][16] != d['obs'][0][16]:
+        idx = 16
+        if len(d['obs'][0]) > idx:
+            if last == None or last['obs'][0][idx] != d['obs'][0][idx]:
                 state = ['none', 'on', 'off']
-                if d['obs'][0][16] < len(state):
-                    pat = state[d['obs'][0][16]]
+                if d['obs'][0][idx] < len(state):
+                    pat = state[d['obs'][0][idx]]
                 else:
-                    pat = "unknown ({})".format(d['obs'][0][16])
-                dev.updateStateOnServer('precipitation_analysis_type', state[d['obs'][0][12]])
+                    pat = "unknown ({})".format(d['obs'][0][idx])
+                dev.updateStateOnServer('precipitation_analysis_type', pat)
 
         dateFormat = self.pluginPrefs["dateFormat"]
         dev.updateStateOnServer('formatted_datetime', time.strftime(dateFormat, time.localtime(d['obs'][0][0])))
+
+        self.process_summary(d)
 
         dev.updateStateOnServer('raw_obs', data)
 
@@ -727,16 +755,30 @@ class Plugin(indigo.PluginBase):
                         dev.updateStateOnServer(i, d['obs'][0][obs_tempest_map[i]])
 
         # 13 - obs_st precipitation type
-        if last == None or last['obs'][0][13] != d['obs'][0][13]:
-            if d['obs'][0][13] < len(precip_type):
-                pt = precip_type[d['obs'][0][13]]
+        idx = 13
+        if last == None or last['obs'][0][idx] != d['obs'][0][idx]:
+            if d['obs'][0][idx] < len(precip_type):
+                pt = precip_type[d['obs'][0][idx]]
             else:
                 pt = "unknown"
-                self.logger.debug("unknown precip type ({})".format(d['obs'][0][12]))
+                self.logger.debug("unknown precip type ({})".format(d['obs'][0][idx]))
             dev.updateStateOnServer('precipitation_type', pt)
+
+        # precipitation analysis type, index 20
+        idx = 20
+        if len(d['obs'][0]) > idx:
+            if (last == None or last['obs'][0][20] != d['obs'][0][idx]) and d['obs'][0][idx] != None:
+                state = ['none', 'on', 'off']
+                if d['obs'][0][idx] < len(state):
+                    pat = state[d['obs'][0][idx]]
+                else:
+                    pat = "unknown ({})".format(d['obs'][0][idx])
+                dev.updateStateOnServer('precipitation_analysis_type', pat)
 
         dateFormat = self.pluginPrefs["dateFormat"]
         dev.updateStateOnServer('formatted_datetime', time.strftime(dateFormat, time.localtime(d['obs'][0][0])))
+
+        self.process_summary(d)
 
         dev.updateStateOnServer('raw_obs', data)
 
@@ -760,6 +802,8 @@ class Plugin(indigo.PluginBase):
 
         dateFormat = self.pluginPrefs["dateFormat"]
         dev.updateStateOnServer('formatted_datetime', time.strftime(dateFormat, time.localtime(d['obs'][0][0])))
+
+        self.process_summary(d)
 
         dev.updateStateOnServer('raw_obs', data)
 
