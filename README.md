@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.1.0
+Released: 2020-05-28
+
+Added support to specify units for temperature, pressure, wind speed & direction, rain and distances.
+
 ### Version 0.0.3
 Released: 2020-05-27
 

@@ -35,6 +35,58 @@
             <Label>Directive for date/time formatted states. See https://strftime.org for examples:</Label>
         </Field>
 	<Field id="sep3" type="separator"/>
+	<Field id="units" type="label" alignText="center" fontColor="blue">
+		<Label>Data units</Label>
+	</Field>
+        <Field id="temp" type="menu" defaultValue="C">
+            <Label>Temperature:</Label>
+            <List>
+                <Option value="C">Celsius (default)</Option>
+                <Option value="F">Fahrenheit</Option>
+            </List>
+	</Field>
+        <Field id="pressure" type="menu" defaultValue="mb">
+            <Label>Pressure:</Label>
+            <List>
+                <Option value="mb">millibars (mb) (default)</Option>
+                <Option value="inHg">inches of mercury (inHg)</Option>
+                <Option value="mmHg">millimeters of mercury (inHg)</Option>
+                <Option value="kPa">kilopascals (kPa)</Option>
+                <Option value="hPa">hectopascals (hPa)</Option>
+            </List>
+	</Field>
+        <Field id="windspeed" type="menu" defaultValue="ms">
+            <Label>Wind Speed:</Label>
+            <List>
+                <Option value="ms">meters per second (default)</Option>
+                <Option value="mph">miles per hour</Option>
+                <Option value="kph">kilometers per hour</Option>
+                <Option value="kts">knots</Option>
+            </List>
+	</Field>
+        <Field id="winddirection" type="menu" defaultValue="d">
+            <Label>Wind Direction:</Label>
+            <List>
+                <Option value="d">degrees (default)</Option>
+                <Option value="c">cardinal</Option>
+            </List>
+	</Field>
+        <Field id="rain" type="menu" defaultValue="mm">
+            <Label>Rain:</Label>
+            <List>
+                <Option value="mm">millimeters (default)</Option>
+                <Option value="cm">centimeters</Option>
+                <Option value="in">inches</Option>
+            </List>
+	</Field>
+        <Field id="distance" type="menu" defaultValue="km">
+            <Label>Distance:</Label>
+            <List>
+                <Option value="km">kilometers (default)</Option>
+                <Option value="mi">miles</Option>
+            </List>
+	</Field>
+	<Field id="sep4" type="separator"/>
 	<Field id="topLabel" type="label" fontColor="darkgray" fontSize="small">
 		<Label>If you are having problems with the plugin (or you are instructed by support), you can enable extra logging in the Event Log window by checking this button. Use with caution.
 		</Label>
@@ -42,7 +94,7 @@
 	<Field id="debug" type="checkbox">
 		<Label>Enable debugging:</Label>
 	</Field>
-	<Field id="sep4" type="separator"/>
+	<Field id="sep5" type="separator"/>
         <Field id="wikiButton" type="button">
             <Label>Wiki: https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki </Label>
             <Title>View Wiki</Title>
