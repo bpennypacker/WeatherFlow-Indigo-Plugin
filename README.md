@@ -14,6 +14,13 @@ Released: 2020-05-28
 
 Added support to specify units for temperature, pressure, wind speed & direction, rain and distances.
 
+### Version 0.0.3
+Released: 2020-05-27
+
+Added missing values from Tempest Websocket observations.
+
+Added support for undocumented "summary" data by way of dynamic Indigo variables (see wiki for details)
+
 ### Version 0.0.2
 Released: 2020-05-24
 
