@@ -879,12 +879,12 @@ class Plugin(indigo.PluginBase):
 
         # Perform any data conversions if necessary
         if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
-            idx = obs_tempest_map['temperature']
+            idx = obs_air_map['temperature']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
 
         if 'pressure' in self.pluginPrefs and self.pluginPrefs['pressure'] != 'mb':
             pressure_unit = self.pluginPrefs['pressure']
-            idx = obs_tempest_map['pressure']
+            idx = obs_air_map['pressure']
             if pressure_unit == 'inHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
             elif pressure_unit == 'mmHg':
@@ -897,7 +897,7 @@ class Plugin(indigo.PluginBase):
                 self.logger.error("Unrecognized pressure unit: {}".format(pressure_unit))
 
         if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
-            idx = obs_tempest_map['lightning_strike_average_distance']
+            idx = obs_air_map['lightning_strike_average_distance']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
 
         last = self.last_obs[dev.id]
