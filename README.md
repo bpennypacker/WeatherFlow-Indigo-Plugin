@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.1.2
+Released: 2020-05-29
+
+Fixed unit conversions in wind & lightning events
+
 ### Version 0.1.1
 Released: 2020-05-29
 
