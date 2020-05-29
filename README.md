@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.1.1
+Released: 2020-05-29
+
+Fixed lookups of new property configuration options
+
 ### Version 0.1.0
 Released: 2020-05-28
 

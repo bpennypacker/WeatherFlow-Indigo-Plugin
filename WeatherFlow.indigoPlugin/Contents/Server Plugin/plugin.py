@@ -704,11 +704,8 @@ class Plugin(indigo.PluginBase):
         d = json.loads(data)
 
         # Perform any data conversions if necessary
-        windspeed_unit = self.pluginPrefs['windspeed']
-        winddir_unit = self.pluginPrefs['winddirection']
-        rain_unit = self.pluginPrefs['rain']
-
-        if windspeed_unit != 'ms':
+        if 'windspeed' in self.pluginPrefs and self.pluginPrefs['windspeed'] != 'ms':
+            windspeed_unit = self.pluginPrefs['windspeed']
             for i in [ 'wind_lull', 'wind_average', 'wind_gust' ]:
                 idx = obs_sky_map[i]
                 if windspeed_unit == 'mph':
@@ -721,11 +718,12 @@ class Plugin(indigo.PluginBase):
                     self.logger.error("Unrecognized wind speed unit: {}".format(windspeed_unit))
                     break
 
-        if winddir_unit != 'd':
+        if 'winddirection' in self.pluginPrefs and 'winddirection' in self.pluginPrefs != 'd':
             idx = obs_sky_map['wind_direction']
             d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
 
-        if rain_unit != 'mm':
+        if 'rain' in self.pluginPrefs and self.pluginPrefs['rain'] != 'mm':
+            rain_unit = self.pluginPrefs['rain']
             idx = obs_sky_map['rain_accumulated_final']
             if rain_unit == 'cm':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
@@ -782,18 +780,12 @@ class Plugin(indigo.PluginBase):
         d = json.loads(data)
 
         # Perform any data conversions if necessary
-        temp_unit = self.pluginPrefs['temp']
-        pressure_unit = self.pluginPrefs['pressure']
-        windspeed_unit = self.pluginPrefs['windspeed']
-        winddir_unit = self.pluginPrefs['winddirection']
-        rain_unit = self.pluginPrefs['rain']
-        distance_unit = self.pluginPrefs['distance']
-
-        if temp_unit != 'C':
+        if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
             idx = obs_tempest_map['temperature']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
 
-        if pressure_unit != 'mb':
+        if 'pressure' in self.pluginPrefs and self.pluginPrefs['pressure'] != 'mb':
+            pressure_unit = self.pluginPrefs['pressure']
             idx = obs_tempest_map['pressure']
             if pressure_unit == 'inHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
@@ -806,7 +798,8 @@ class Plugin(indigo.PluginBase):
             else:
                 self.logger.error("Unrecognized pressure unit: {}".format(pressure_unit))
 
-        if windspeed_unit != 'ms':
+        if 'windspeed' in self.pluginPrefs and self.pluginPrefs['windspeed'] != 'ms':
+            windspeed_unit = self.pluginPrefs['windspeed']
             for i in [ 'wind_lull', 'wind_average', 'wind_gust' ]:
                 idx = obs_tempest_map[i]
                 if windspeed_unit == 'mph':
@@ -819,11 +812,12 @@ class Plugin(indigo.PluginBase):
                     self.logger.error("Unrecognized wind speed unit: {}".format(windspeed_unit))
                     break
 
-        if winddir_unit != 'd':
+        if 'winddirection' in self.pluginPrefs and self.pluginPrefs['winddirection'] != 'd':
             idx = obs_tempest_map['wind_direction']
             d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
 
-        if rain_unit != 'mm':
+        if 'rain' in self.pluginPrefs and self.pluginPrefs['rain'] != 'mm':
+            rain_unit = self.pluginPrefs['rain']
             idx = obs_tempest_map['precipitation']
             if rain_unit == 'cm':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
@@ -832,7 +826,7 @@ class Plugin(indigo.PluginBase):
             else:
                 self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
 
-        if distance_unit != 'km':
+        if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = obs_tempest_map['lightning_strike_average_distance']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
 
@@ -883,15 +877,12 @@ class Plugin(indigo.PluginBase):
         d = json.loads(data)
 
         # Perform any data conversions if necessary
-        temp_unit = self.pluginPrefs['temp']
-        pressure_unit = self.pluginPrefs['pressure']
-        distance_unit = self.pluginPrefs['distance']
-
-        if temp_unit != 'C':
+        if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
             idx = obs_tempest_map['temperature']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
 
-        if pressure_unit != 'mb':
+        if 'pressure' in self.pluginPrefs and self.pluginPrefs['pressure'] != 'mb':
+            pressure_unit = self.pluginPrefs['pressure']
             idx = obs_tempest_map['pressure']
             if pressure_unit == 'inHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
@@ -904,7 +895,7 @@ class Plugin(indigo.PluginBase):
             else:
                 self.logger.error("Unrecognized pressure unit: {}".format(pressure_unit))
 
-        if distance_unit != 'km':
+        if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = obs_tempest_map['lightning_strike_average_distance']
             d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
 
@@ -934,10 +925,8 @@ class Plugin(indigo.PluginBase):
         d = json.loads(data)
 
         # Perform any data conversions if necessary
-        windspeed_unit = self.pluginPrefs['windspeed']
-        winddir_unit = self.pluginPrefs['winddirection']
-
-        if windspeed_unit != 'ms':
+        if 'windspeed' in self.pluginPrefs and self.pluginPrefs['windspeed'] != 'ms':
+            windspeed_unit = self.pluginPrefs['windspeed']
             idx = rapid_wind_map['wind_speed']
             if windspeed_unit == 'mph':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 2.237
@@ -948,7 +937,7 @@ class Plugin(indigo.PluginBase):
             else:
                 self.logger.error("Unrecognized wind speed unit: {}".format(windspeed_unit))
 
-        if winddir_unit != 'd':
+        if 'winddirection' in self.pluginPrefs and self.pluginPrefs['winddirection'] != 'd':
             idx = rapid_wind_map['wind_direction']
             d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
 
