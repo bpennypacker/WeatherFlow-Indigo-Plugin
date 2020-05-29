@@ -112,7 +112,8 @@ obs_precision = {
     'rain_accumulated_final':             1,
     'daily_rain_accumulation_final':      1,
     'strike_distance':                    2,
-    'lightning_strike_average_distance':  2
+    'lightning_strike_average_distance':  2,
+    'wind_speed':                         2
 }
 
 precip_type = ['none', 'rain', 'hail', 'rhmix']
@@ -929,17 +930,17 @@ class Plugin(indigo.PluginBase):
             windspeed_unit = self.pluginPrefs['windspeed']
             idx = rapid_wind_map['wind_speed']
             if windspeed_unit == 'mph':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 2.237
+                d['ob'][idx] = float(d['ob'][idx]) * 2.237
             elif windspeed_unit == 'kph':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 3.6
+                d['ob'][idx] = float(d['ob'][idx]) * 3.6
             elif windspeed_unit == 'kts':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.944
+                d['ob'][idx] = float(d['ob'][idx]) * 1.944
             else:
                 self.logger.error("Unrecognized wind speed unit: {}".format(windspeed_unit))
 
         if 'winddirection' in self.pluginPrefs and self.pluginPrefs['winddirection'] != 'd':
             idx = rapid_wind_map['wind_direction']
-            d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
+            d['ob'][idx] = degrees_to_cardinal(d['ob'][idx])
 
         last = self.last_rapid_wind[dev.id]
 
@@ -964,8 +965,9 @@ class Plugin(indigo.PluginBase):
 
         d = json.loads(data)
 
-        dateFormat = self.pluginPrefs["dateFormat"]
-        dev.updateStateOnServer('last_precip_formatted', time.strftime(dateFormat, time.localtime(d['evt'][0])))
+        if "dateFormat" in self.pluginPrefs:
+            dateFormat = self.pluginPrefs["dateFormat"]
+            dev.updateStateOnServer('last_precip_formatted', time.strftime(dateFormat, time.localtime(d['evt'][0])))
 
         dev.updateStateOnServer('last_precip', d['evt'][0])
         dev.updateStateOnServer('raw_precip', data)
@@ -976,9 +978,7 @@ class Plugin(indigo.PluginBase):
         d = json.loads(data)
 
         # Perform any data conversions if necessary
-        distance_unit = self.pluginPrefs['distance']
-
-        if distance_unit != 'km':
+        if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = evt_strike_map['strike_distance']
             d['evt'][idx] = float(d['evt'][idx]) * 1.609
 
