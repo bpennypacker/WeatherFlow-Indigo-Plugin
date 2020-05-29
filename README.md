@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.1.3
+Released: 2020-05-29
+
+Fixed observation mappings
+
 ### Version 0.1.2
 Released: 2020-05-29
 
