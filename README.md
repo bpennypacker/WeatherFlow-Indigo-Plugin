@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.2.0
+Released: 2020-06-02
+
+Added ability to customize the "State" column in the Indigo Devices display.
+
 ### Version 0.1.3
 Released: 2020-05-29
 

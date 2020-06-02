@@ -420,6 +420,15 @@ class Plugin(indigo.PluginBase):
 
         if self.WFUDPWorker != None:
             self.WFUDPWorker.shutdown()
+
+    ########################################
+    def getDeviceDisplayStateId(self,dev):
+        props = dev.pluginProps
+
+        if 'stateDisplay' in props:
+            return props['stateDisplay']
+  
+        return 'blank'
         
     ########################################
     def deviceStartComm(self, dev):
