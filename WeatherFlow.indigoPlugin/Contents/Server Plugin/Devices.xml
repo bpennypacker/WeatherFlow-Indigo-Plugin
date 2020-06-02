@@ -8,7 +8,24 @@
                 <Label>Smart Weather AIR Websocket Device:</Label>
                 <List class="self" filter="AR" method="getWebsocketDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="temperature">Air Temperature</Option>
+                    <Option value="pressure">Station Pressure</Option>
+                    <Option value="relative_humidity">Relative Humidity</Option>
+                    <Option value="lightning_strike_count">Lightning Strike Count</Option>
+                    <Option value="lightning_strike_average_distance">Lightning Strike Average Distance</Option>
+                    <Option value="strike_distance">Distance to last lightning strike</Option>
+                    <Option value="strike_energy">Energy of last lightning strike</Option>
+                    <Option value="wind_lull">Wind Lull</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -62,6 +79,7 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
 
     <Device type="custom" id="SmartWeatherSkyWS">
@@ -71,7 +89,29 @@
                 <Label>Smart Weather SKY Websocket Device:</Label>
                 <List class="self" filter="SK" method="getWebsocketDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="strike_distance">Distance to last lightning strike</Option>
+                    <Option value="strike_energy">Energy of last lightning strike</Option>
+                    <Option value="solar_radiation">Solar Radiation</Option>
+                    <Option value="wind_average">Wind Average</Option>
+                    <Option value="wind_gust">Wind Gust</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="illuminance">Illuminance</Option>
+                    <Option value="uv">UV</Option>
+                    <Option value="precipitation">Precipitation Accumulated</Option>
+                    <Option value="precipitation_type">Precipitation Type</Option>
+                    <Option value="wind_lull">Wind Lull</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -226,6 +266,7 @@
                 <ControlPageLabel>Raw lightning strike data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
     <Device type="custom" id="SmartWeatherRapidWindWS">
         <Name>Smart Weather Rapid Wind Websocket Device</Name>
@@ -234,7 +275,17 @@
                 <Label>Smart Weather Device for Rapid Wind monitoring:</Label>
                 <List class="self" filter="SK|ST" method="getWebsocketDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="wind_speed">Wind Speed</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -263,6 +314,7 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
     <Device type="custom" id="SmartWeatherAirUDP">
         <Name>Smart Weather Air UDP Device</Name>
@@ -271,7 +323,21 @@
                 <Label>Smart Weather AIR UDP Device Serial Number:</Label>
                 <List class="self" filter="AR" method="getUDPDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="temperature">Air Temperature</Option>
+                    <Option value="pressure">Station Pressure</Option>
+                    <Option value="relative_humidity">Relative Humidity</Option>
+                    <Option value="lightning_strike_count">Lightning Strike Count</Option>
+                    <Option value="lightning_strike_average_distance">Lightning Strike Average Distance</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -325,6 +391,7 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
     <Device type="custom" id="SmartWeatherSkyUDP">
         <Name>Smart Weather Sky UDP Device</Name>
@@ -333,7 +400,28 @@
                 <Label>Smart Weather SKY UDP Device:</Label>
                 <List class="self" filter="SK" method="getUDPDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="wind_average">Wind Average</Option>
+                    <Option value="wind_gust">Wind Gust</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="wind_lull">Wind Lull</Option>
+                    <Option value="illuminance">Illuminance</Option>
+                    <Option value="uv">UV</Option>
+                    <Option value="solar_radiation">Solar Radiation</Option>
+                    <Option value="rain_accumulated">Rain Accumulated</Option>
+                    <Option value="strike_distance">Distance to last lightning strike</Option>
+                    <Option value="strike_energy">Energy of last lightning strike</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -490,6 +578,7 @@
                 <ControlPageLabel>Raw lightning strike data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
     <Device type="custom" id="SmartWeatherRapidWindUDP">
         <Name>Smart Weather Rapid Wind UDP Device</Name>
@@ -498,7 +587,17 @@
                 <Label>Smart Weather SKY Device for Rapid Wind monitoring:</Label>
                 <List class="self" filter="SK" method="getUDPDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="wind_speed">Wind Speed</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -527,6 +626,7 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
 
     <Device type="custom" id="SmartWeatherTempestWS">
@@ -536,7 +636,34 @@
                 <Label>Smart Weather Tempest Websocket Device:</Label>
                 <List class="self" filter="ST" method="getWebsocketDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="temperature">Air Temperature</Option>
+                    <Option value="pressure">Station Pressure</Option>
+                    <Option value="relative_humidity">Relative Humidity</Option>
+                    <Option value="lightning_strike_count">Lightning Strike Count</Option>
+                    <Option value="lightning_strike_average_distance">Lightning Strike Average Distance</Option>
+                    <Option value="strike_distance">Distance to last lightning strike</Option>
+                    <Option value="strike_energy">Energy of last lightning strike</Option>
+                    <Option value="solar_radiation">Solar Radiation</Option>
+                    <Option value="wind_average">Wind Average</Option>
+                    <Option value="wind_gust">Wind Gust</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="illuminance">Illuminance</Option>
+                    <Option value="uv">UV</Option>
+                    <Option value="precipitation">Precipitation Accumulated</Option>
+                    <Option value="precipitation_type">Precipitation Type</Option>
+                    <Option value="wind_lull">Wind Lull</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="websocket" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -712,6 +839,7 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
 
     <Device type="custom" id="SmartWeatherTempestUDP">
@@ -721,7 +849,30 @@
                 <Label>Smart Weather Tempest UDP Device Serial Number:</Label>
                 <List class="self" filter="ST" method="getUDPDeviceList" />
             </Field>
+            <Field type="menu" id="stateDisplay" Value="temperature">
+                <Label>State display:</Label>
+                <List>
+                    <Option value="blank">(blank)</Option>
+                    <Option value="temperature">Air Temperature</Option>
+                    <Option value="pressure">Station Pressure</Option>
+                    <Option value="relative_humidity">Relative Humidity</Option>
+                    <Option value="lightning_strike_count">Lightning Strike Count</Option>
+                    <Option value="lightning_strike_average_distance">Lightning Strike Average Distance</Option>
+                    <Option value="solar_radiation">Solar Radiation</Option>
+                    <Option value="wind_average">Wind Average</Option>
+                    <Option value="wind_gust">Wind Gust</Option>
+                    <Option value="wind_direction">Wind Direction</Option>
+                    <Option value="illuminance">Illuminance</Option>
+                    <Option value="uv">UV</Option>
+                    <Option value="precipitation">Precipitation Accumulated</Option>
+                    <Option value="precipitation_type">Precipitation Type</Option>
+                    <Option value="wind_lull">Wind Lull</Option>
+                    <Option value="battery">Battery Volts</Option>
+                    <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
+                </List>
+            </Field>
             <Field id="dev_type" type="textfield" hidden="true" readonly="true" defaultValue="udp" />
+            <Field id="blank" type="textfield" hidden="true" readonly="true" defaultValue="" />
         </ConfigUI>
         <States>
             <State id="timestamp" readonly="YES">
@@ -834,5 +985,6 @@
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
         </States>
+        <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
 </Devices>
