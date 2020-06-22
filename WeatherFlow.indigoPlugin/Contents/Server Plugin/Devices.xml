@@ -106,7 +106,7 @@
                     <Option value="wind_lull">Wind Lull</Option>
                     <Option value="battery">Battery Volts</Option>
                     <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
-                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_strike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
                     <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
                 </List>
             </Field>
@@ -245,7 +245,7 @@
                 <TriggerLabel>Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Time of last lightning strike</ControlPageLabel>
             </State>
-            <State id="last_srike_formatted" readonly="YES">
+            <State id="last_strike_formatted" readonly="YES">
                 <ValueType>String</ValueType>
                 <TriggerLabel>Formatted Date/Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Formatted Date/Time of last lighting strike</ControlPageLabel>
@@ -416,7 +416,7 @@
                     <Option value="strike_energy">Energy of last lightning strike</Option>
                     <Option value="battery">Battery Volts</Option>
                     <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
-                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_strike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
                     <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
                 </List>
             </Field>
@@ -557,7 +557,7 @@
                 <TriggerLabel>Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Time of last lightning strike</ControlPageLabel>
             </State>
-            <State id="last_srike_formatted" readonly="YES">
+            <State id="last_strike_formatted" readonly="YES">
                 <ValueType>String</ValueType>
                 <TriggerLabel>Formatted Date/Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Formatted Date/Time of last lighting strike</ControlPageLabel>
@@ -658,7 +658,7 @@
                     <Option value="wind_lull">Wind Lull</Option>
                     <Option value="battery">Battery Volts</Option>
                     <Option value="formatted_datetime">Formatted Date/Time of Last Observation</Option>
-                    <Option value="last_srike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
+                    <Option value="last_strike_formatted">Formatted Date/Time of Last Lightning Strike</Option>
                     <Option value="last_precip_formatted">Formatted Date/Time of Last Lightning Precipitation</Option>
                 </List>
             </Field>
@@ -706,7 +706,7 @@
                 <TriggerLabel>Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Time of last lightning strike</ControlPageLabel>
             </State>
-            <State id="last_srike_formatted" readonly="YES">
+            <State id="last_strike_formatted" readonly="YES">
                 <ValueType>String</ValueType>
                 <TriggerLabel>Formatted Date/Time of last lightning strike</TriggerLabel>
                 <ControlPageLabel>Formatted Date/Time of last lighting strike</ControlPageLabel>

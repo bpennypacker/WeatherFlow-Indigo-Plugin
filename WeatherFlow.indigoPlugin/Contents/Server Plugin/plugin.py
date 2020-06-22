@@ -1005,7 +1005,7 @@ class Plugin(indigo.PluginBase):
                         dev.updateStateOnServer(i, d['evt'][evt_strike_map[i]])
 
         dateFormat = self.pluginPrefs["dateFormat"]
-        dev.updateStateOnServer('last_srike_formatted', time.strftime(dateFormat, time.localtime(d['evt'][0])))
+        dev.updateStateOnServer('last_strike_formatted', time.strftime(dateFormat, time.localtime(d['evt'][0])))
 
         dev.updateStateOnServer('raw_strike', data)
 
