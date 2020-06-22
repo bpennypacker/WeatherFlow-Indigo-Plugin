@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.2.1
+Released: 2020-06-22
+
+Fixed typo in formatted last lightning strike state
+
 ### Version 0.2.0
 Released: 2020-06-02
 
