@@ -718,7 +718,9 @@ class Plugin(indigo.PluginBase):
             windspeed_unit = self.pluginPrefs['windspeed']
             for i in [ 'wind_lull', 'wind_average', 'wind_gust' ]:
                 idx = obs_sky_map[i]
-                if windspeed_unit == 'mph':
+                if d['obs'][0][idx] == None:
+                    pass
+                elif windspeed_unit == 'mph':
                     d['obs'][0][idx] = float(d['obs'][0][idx]) * 2.237
                 elif windspeed_unit == 'kph':
                     d['obs'][0][idx] = float(d['obs'][0][idx]) * 3.6
@@ -730,17 +732,21 @@ class Plugin(indigo.PluginBase):
 
         if 'winddirection' in self.pluginPrefs and 'winddirection' in self.pluginPrefs != 'd':
             idx = obs_sky_map['wind_direction']
-            d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
 
         if 'rain' in self.pluginPrefs and self.pluginPrefs['rain'] != 'mm':
             rain_unit = self.pluginPrefs['rain']
-            idx = obs_sky_map['rain_accumulated_final']
-            if rain_unit == 'cm':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
-            elif rain_unit == 'in':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
-            else:
-                self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
+            for i in [ 'rain_accumulated', 'rain_accumulated_final', 'daily_rain_accumulation_final' ]:
+                idx = obs_sky_map[i]
+                if d['obs'][0][idx] == None:
+                    pass
+                elif rain_unit == 'cm':
+                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
+                elif rain_unit == 'in':
+                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
+                else:
+                    self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
 
         last = self.last_obs[dev.id]
 
@@ -792,12 +798,15 @@ class Plugin(indigo.PluginBase):
         # Perform any data conversions if necessary
         if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
             idx = obs_tempest_map['temperature']
-            d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
 
         if 'pressure' in self.pluginPrefs and self.pluginPrefs['pressure'] != 'mb':
             pressure_unit = self.pluginPrefs['pressure']
             idx = obs_tempest_map['pressure']
-            if pressure_unit == 'inHg':
+            if d['obs'][0][idx] == None:
+                pass
+            elif pressure_unit == 'inHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
             elif pressure_unit == 'mmHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.333224
@@ -812,7 +821,9 @@ class Plugin(indigo.PluginBase):
             windspeed_unit = self.pluginPrefs['windspeed']
             for i in [ 'wind_lull', 'wind_average', 'wind_gust' ]:
                 idx = obs_tempest_map[i]
-                if windspeed_unit == 'mph':
+                if d['obs'][0][idx] == None:
+                    pass
+                elif windspeed_unit == 'mph':
                     d['obs'][0][idx] = float(d['obs'][0][idx]) * 2.237
                 elif windspeed_unit == 'kph':
                     d['obs'][0][idx] = float(d['obs'][0][idx]) * 3.6
@@ -824,21 +835,26 @@ class Plugin(indigo.PluginBase):
 
         if 'winddirection' in self.pluginPrefs and self.pluginPrefs['winddirection'] != 'd':
             idx = obs_tempest_map['wind_direction']
-            d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = degrees_to_cardinal(d['obs'][0][idx])
 
         if 'rain' in self.pluginPrefs and self.pluginPrefs['rain'] != 'mm':
             rain_unit = self.pluginPrefs['rain']
-            idx = obs_tempest_map['precipitation']
-            if rain_unit == 'cm':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
-            elif rain_unit == 'in':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
-            else:
-                self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
+            for i in [ 'precipitation', 'rain_accumulated_final', 'daily_rain_accumulation_final' ]:
+                idx = obs_tempest_map[i]
+                if d['obs'][0][idx] == None:
+                    pass
+                elif rain_unit == 'cm':
+                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
+                elif rain_unit == 'in':
+                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
+                else:
+                    self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
 
         if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = obs_tempest_map['lightning_strike_average_distance']
-            d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
 
         last = self.last_obs[dev.id]
 
@@ -889,12 +905,15 @@ class Plugin(indigo.PluginBase):
         # Perform any data conversions if necessary
         if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
             idx = obs_air_map['temperature']
-            d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.8 + 32.0
 
         if 'pressure' in self.pluginPrefs and self.pluginPrefs['pressure'] != 'mb':
             pressure_unit = self.pluginPrefs['pressure']
             idx = obs_air_map['pressure']
-            if pressure_unit == 'inHg':
+            if d['obs'][0][idx] == None:
+                pass
+            elif pressure_unit == 'inHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
             elif pressure_unit == 'mmHg':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.333224
@@ -907,7 +926,8 @@ class Plugin(indigo.PluginBase):
 
         if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = obs_air_map['lightning_strike_average_distance']
-            d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
+            if d['obs'][0][idx] != None:
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.609
 
         last = self.last_obs[dev.id]
 
