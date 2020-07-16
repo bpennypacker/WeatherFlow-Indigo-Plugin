@@ -9,6 +9,13 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.2.3 
+Released: 2020-07-16
+
+* Improve error handling in validating Station ID's
+* Fix pressure conversions
+* Fix processing of Tempest UDP observations
+
 ### Version 0.2.2 
 Released: 2020-07-14
 

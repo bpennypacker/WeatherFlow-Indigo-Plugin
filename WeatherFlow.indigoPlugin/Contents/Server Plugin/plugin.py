@@ -386,6 +386,7 @@ class Plugin(indigo.PluginBase):
             self.logger.debug("GET " + url)
             try:
                 response = requests.get(url)
+                response.raise_for_status()
                 self.logger.debug("response: {}".format(response.status_code))
                 self.stationMetadata = json.loads(response.content)
                 self.logger.debug(json.dumps(self.stationMetadata, sort_keys=True, indent=4, separators=(',', ': ')))
@@ -527,6 +528,7 @@ class Plugin(indigo.PluginBase):
             self.logger.debug("GET " + url)
             try:
                 response = requests.get(url)
+                response.raise_for_status()
                 self.logger.debug("response: {}".format(response.status_code))
                 self.stationMetadata = json.loads(response.content)
                 self.logger.debug(json.dumps(self.stationMetadata, sort_keys=True, indent=4, separators=(',', ': ')))
@@ -807,9 +809,9 @@ class Plugin(indigo.PluginBase):
             if d['obs'][0][idx] == None:
                 pass
             elif pressure_unit == 'inHg':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.02953
             elif pressure_unit == 'mmHg':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.333224
+                d['obs'][0][idx] = float(d['obs'][0][idx]) / 1.333224
             elif pressure_unit == 'kPa':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) / 1.0
             elif pressure_unit == 'hPa':
@@ -842,14 +844,15 @@ class Plugin(indigo.PluginBase):
             rain_unit = self.pluginPrefs['rain']
             for i in [ 'precipitation', 'rain_accumulated_final', 'daily_rain_accumulation_final' ]:
                 idx = obs_tempest_map[i]
-                if d['obs'][0][idx] == None:
-                    pass
-                elif rain_unit == 'cm':
-                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
-                elif rain_unit == 'in':
-                    d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
-                else:
-                    self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
+                if idx < len(d['obs'][0]):
+                    if d['obs'][0][idx] == None:
+                        pass
+                    elif rain_unit == 'cm':
+                        d['obs'][0][idx] = float(d['obs'][0][idx]) / 10.0
+                    elif rain_unit == 'in':
+                        d['obs'][0][idx] = float(d['obs'][0][idx]) / 25.4
+                    else:
+                        self.logger.error("Unrecognized rain unit: {}".format(rain_unit))
 
         if 'distance' in self.pluginPrefs and self.pluginPrefs['distance'] != 'km':
             idx = obs_tempest_map['lightning_strike_average_distance']
@@ -914,9 +917,9 @@ class Plugin(indigo.PluginBase):
             if d['obs'][0][idx] == None:
                 pass
             elif pressure_unit == 'inHg':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.03937008
+                d['obs'][0][idx] = float(d['obs'][0][idx]) * 0.02953
             elif pressure_unit == 'mmHg':
-                d['obs'][0][idx] = float(d['obs'][0][idx]) * 1.333224
+                d['obs'][0][idx] = float(d['obs'][0][idx]) / 1.333224
             elif pressure_unit == 'kPa':
                 d['obs'][0][idx] = float(d['obs'][0][idx]) / 1.0
             elif pressure_unit == 'hPa':

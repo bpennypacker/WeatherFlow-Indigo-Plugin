@@ -50,7 +50,7 @@
             <List>
                 <Option value="mb">millibars (mb) (default)</Option>
                 <Option value="inHg">inches of mercury (inHg)</Option>
-                <Option value="mmHg">millimeters of mercury (inHg)</Option>
+                <Option value="mmHg">millimeters of mercury (mmHg)</Option>
                 <Option value="kPa">kilopascals (kPa)</Option>
                 <Option value="hPa">hectopascals (hPa)</Option>
             </List>
