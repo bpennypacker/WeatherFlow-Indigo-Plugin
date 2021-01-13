@@ -19,7 +19,13 @@ import socket
 import datetime
 import webbrowser
 
-api_key = "20c70eae-e62f-4d3b-b3a4-8586e90f3ac8"
+default_api_key = "20c70eae-e62f-4d3b-b3a4-8586e90f3ac8"
+api_key_msg = """
+Using a deprecated WeatherFlow API key. This key will be removed in a future version of
+this plug-in. Please generate your own Personal Use Token and add it to the plug-ins
+configuration dialog. For more information on creating a Personal Use Token see the wiki:
+https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki
+"""
 
 urls = {
   'station': "https://swd.weatherflow.com/swd/rest/stations/{}?api_key={}",
@@ -375,6 +381,11 @@ class Plugin(indigo.PluginBase):
         errorDict = indigo.Dict()
         isError = False
 
+        if valuesDict['accessToken']:
+            tmp_api_key = valuesDict['accessToken']
+        else:
+            tmp_api_key = default_api_key
+
         if 'websocketsEnabled' in valuesDict and valuesDict['websocketsEnabled'] == True:
             stationID = valuesDict["stationID"]
 
@@ -382,7 +393,7 @@ class Plugin(indigo.PluginBase):
                 errorDict["stationID"] = "Station ID must be a positive integer"
                 isError = True
 
-            url = urls['station'].format(stationID, api_key)
+            url = urls['station'].format(stationID, tmp_api_key)
             self.logger.debug("GET " + url)
             try:
                 response = requests.get(url)
@@ -434,6 +445,12 @@ class Plugin(indigo.PluginBase):
     ########################################
     def deviceStartComm(self, dev):
         self.logger.debug(u"deviceStartComm({})".format(dev.name))
+
+        if 'accessToken' in self.pluginPrefs and self.pluginPrefs['accessToken']:
+            api_key = self.pluginPrefs['accessToken']
+        else:
+            api_key = default_api_key
+            self.logger.error(api_key_msg)
 
         props = dev.pluginProps
 
@@ -521,6 +538,11 @@ class Plugin(indigo.PluginBase):
     def getWebsocketDeviceList(self, filter="", valuesDict=None, typeId="", targetId=0):
         array = [ ]
 
+        if 'accessToken' in self.pluginPrefs and self.pluginPrefs['accessToken']:
+            api_key = self.pluginPrefs['accessToken']
+        else:
+            api_key = default_api_key
+
         filter_list = filter.split('|')
 
         if self.stationMetadata == None and isInt(self.pluginPrefs['stationID']):
@@ -543,7 +565,7 @@ class Plugin(indigo.PluginBase):
             for d in devices:
                 if 'device_type' in d and d['device_type'] in filter_list:
                     array.append((d['device_id'], "{} ({})".format(d['device_meta']['name'], d['device_meta']['environment'])))
-        except:
+        except Exception as e:
             self.logger.error(traceback.format_exception(*sys.exc_info()))
             self.logger.error(str(e))
 
@@ -623,6 +645,14 @@ class Plugin(indigo.PluginBase):
                     indigo_dev = indigo.devices[self.dev_map[dm]]
                     self.process_obs_tempest(indigo_dev, data)
 
+            elif j['type'] in [ "evt_device_offline", "evt_device_online" ]:
+                mode = j['type'].split('_')[2]
+                for swtype in [ 'SmartWeatherAir', 'SmartWeatherSky', 'SmartWeatherTempest' ] :
+                    dm = "{}-{}{}".format(token, swtype, suffix)
+                    if dm in self.dev_map:
+                        indigo_dev = indigo.devices[self.dev_map[dm]]
+                        indigo_dev.updateStateOnServer("mode", mode)
+
             else:
                 jd = json.dumps(j, sort_keys=True, indent=4, separators=(',', ': '))
                 self.logger.error("unrecognized event type:\n{}".format(jd))
@@ -654,6 +684,11 @@ class Plugin(indigo.PluginBase):
             if (self.WFWSWorker == None and
                     'websocketsEnabled' in self.pluginPrefs and
                     self.pluginPrefs['websocketsEnabled'] == True):
+
+                if 'accessToken' in self.pluginPrefs and self.pluginPrefs['accessToken']:
+                    api_key = self.pluginPrefs['accessToken']
+                else:
+                    api_key = default_api_key
 
                 self.WFWSWorker = WeatherFlowWebsocketWorker(api_key, self.queue)
                 self.WFWSWorker.start()
@@ -714,6 +749,17 @@ class Plugin(indigo.PluginBase):
     def process_obs_sky(self, dev, data):
 
         d = json.loads(data)
+
+        # Websocket data includes a source, UDP doesn't. If source is 'cached' then
+        # the device is offline.
+        if 'source' in d:
+            if not dev.states['mode']:
+                if d['source'] == "cache":
+                    dev.updateStateOnServer("mode", "offline")
+                else:
+                    dev.updateStateOnServer("mode", "online")
+            elif dev.states['mode'] == "offline" and d['source'] != "cache":
+                dev.updateStateOnServer("mode", "online")
 
         # Perform any data conversions if necessary
         if 'windspeed' in self.pluginPrefs and self.pluginPrefs['windspeed'] != 'ms':
@@ -796,6 +842,17 @@ class Plugin(indigo.PluginBase):
     def process_obs_tempest(self, dev, data):
 
         d = json.loads(data)
+
+        # Websocket data includes a source, UDP doesn't. If source is 'cached' then
+        # the device is offline.
+        if 'source' in d:
+            if not dev.states['mode']:
+                if d['source'] == "cache":
+                    dev.updateStateOnServer("mode", "offline")
+                else:
+                    dev.updateStateOnServer("mode", "online")
+            elif dev.states['mode'] == "offline" and d['source'] != "cache":
+                dev.updateStateOnServer("mode", "online")
 
         # Perform any data conversions if necessary
         if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
@@ -904,6 +961,17 @@ class Plugin(indigo.PluginBase):
     def process_obs_air(self, dev, data):
 
         d = json.loads(data)
+
+        # Websocket data includes a source, UDP doesn't. If source is 'cached' then
+        # the device is offline.
+        if 'source' in d:
+            if not dev.states['mode']:
+                if d['source'] == "cache":
+                    dev.updateStateOnServer("mode", "offline")
+                else:
+                    dev.updateStateOnServer("mode", "online")
+            elif dev.states['mode'] == "offline" and d['source'] != "cache":
+                dev.updateStateOnServer("mode", "online")
 
         # Perform any data conversions if necessary
         if 'temp' in self.pluginPrefs and self.pluginPrefs['temp'] != 'C':
