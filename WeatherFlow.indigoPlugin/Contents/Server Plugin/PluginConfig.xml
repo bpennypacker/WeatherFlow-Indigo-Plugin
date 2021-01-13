@@ -12,10 +12,13 @@
 		<Label>Websocket Configuration</Label>
 	</Field>
         <Field id="desc2" type="label">
-                <Label>To use Websockets you need to know the Station ID Weather Flow has assigned to your station. If you are not sure how to locate this then please view the wiki documentation for the Plugin.</Label>
+                <Label>To use Websockets you need a Personal Access Token and also the Station ID Weather Flow has assigned to your station. If you are not sure how to locate either of these then please view the wiki documentation for the Plugin by clicking on the button at the bottom of this window..</Label>
         </Field>
         <Field id="websocketsEnabled" type="checkbox" defaultValue="false">
             <Label>Enable Websockets:</Label>
+        </Field>
+        <Field id="accessToken" type="textfield" enabledBindingId="websocketsEnabled">
+                <Label>WeatherFlow Personal Access Token</Label>
         </Field>
         <Field id="stationID" type="textfield" enabledBindingId="websocketsEnabled">
                 <Label>WeatherFlow Smart Weather Station ID</Label>

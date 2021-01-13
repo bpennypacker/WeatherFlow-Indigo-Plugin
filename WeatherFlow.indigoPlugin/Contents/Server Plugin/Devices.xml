@@ -78,6 +78,11 @@
                 <TriggerLabel>Raw Observation Data</TriggerLabel>
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
             </State>
+            <State id="mode" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Mode</TriggerLabel>
+                <ControlPageLabel>Mode</ControlPageLabel>
+            </State>
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
@@ -265,9 +270,15 @@
                 <TriggerLabel>Raw lightning strike data</TriggerLabel>
                 <ControlPageLabel>Raw lightning strike data</ControlPageLabel>
             </State>
+            <State id="mode" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Mode</TriggerLabel>
+                <ControlPageLabel>Mode</ControlPageLabel>
+            </State>
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
+
     <Device type="custom" id="SmartWeatherRapidWindWS">
         <Name>Smart Weather Rapid Wind Websocket Device</Name>
         <ConfigUI>
@@ -316,6 +327,7 @@
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
+
     <Device type="custom" id="SmartWeatherAirUDP">
         <Name>Smart Weather Air UDP Device</Name>
         <ConfigUI>
@@ -393,6 +405,7 @@
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
+
     <Device type="custom" id="SmartWeatherSkyUDP">
         <Name>Smart Weather Sky UDP Device</Name>
         <ConfigUI>
@@ -580,6 +593,7 @@
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
     </Device>
+
     <Device type="custom" id="SmartWeatherRapidWindUDP">
         <Name>Smart Weather Rapid Wind UDP Device</Name>
         <ConfigUI>
@@ -837,6 +851,11 @@
                 <ValueType>String</ValueType>
                 <TriggerLabel>Raw Observation Data</TriggerLabel>
                 <ControlPageLabel>Raw Observation Data</ControlPageLabel>
+            </State>
+            <State id="mode" readonly="YES">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Mode</TriggerLabel>
+                <ControlPageLabel>Mode</ControlPageLabel>
             </State>
         </States>
         <UiDisplayStateId>blank</UiDisplayStateId>
