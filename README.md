@@ -9,6 +9,13 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.3.0
+Released: 2021-01-13
+
+* Added mode state to websocket devices
+* Added support for Personal Access Tokens
+* Fixed a small bug in an exception handler
+
 ### Version 0.2.3 
 Released: 2020-07-16
 
