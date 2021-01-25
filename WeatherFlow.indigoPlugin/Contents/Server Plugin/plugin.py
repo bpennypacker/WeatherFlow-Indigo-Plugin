@@ -372,11 +372,6 @@ class Plugin(indigo.PluginBase):
         self.WFUDPDevCount = 0
 
     ########################################
-    def launchWiki(self, valuesDict=None, typeId="", targetId=0):
-        webbrowser.open('https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki')
-        return valuesDict
-
-    ########################################
     def validatePrefsConfigUi(self, valuesDict):
         errorDict = indigo.Dict()
         isError = False
@@ -445,6 +440,7 @@ class Plugin(indigo.PluginBase):
     ########################################
     def deviceStartComm(self, dev):
         self.logger.debug(u"deviceStartComm({})".format(dev.name))
+        dev.stateListOrDisplayStateIdChanged() # in case any states added/removed after plugin upgrade
 
         if 'accessToken' in self.pluginPrefs and self.pluginPrefs['accessToken']:
             api_key = self.pluginPrefs['accessToken']
