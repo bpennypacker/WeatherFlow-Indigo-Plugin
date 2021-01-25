@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <PluginConfig>
-	<SupportURL>http://bruce.pennypacker.org/TBD/</SupportURL>
+	<SupportURL>https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki</SupportURL>
 	<Field id="title" type="label" alignText="center" fontColor="blue">
 		<Label>WeatherFlow Smart Weather Plugin Configuration</Label>
 	</Field>
@@ -90,7 +90,7 @@
             </List>
 	</Field>
 	<Field id="sep4" type="separator"/>
-	<Field id="topLabel" type="label" fontColor="darkgray" fontSize="small">
+	<Field id="topLabel" type="label">
 		<Label>If you are having problems with the plugin (or you are instructed by support), you can enable extra logging in the Event Log window by checking this button. Use with caution.
 		</Label>
 	</Field>
@@ -98,9 +98,7 @@
 		<Label>Enable debugging:</Label>
 	</Field>
 	<Field id="sep5" type="separator"/>
-        <Field id="wikiButton" type="button">
-            <Label>Wiki: https://github.com/bpennypacker/WeatherFlow-Indigo-Plugin/wiki </Label>
-            <Title>View Wiki</Title>
-            <CallbackMethod>launchWiki</CallbackMethod>
+        <Field id="wikiButton" type="label">
+            <Label>Full plug-in documentation is available on the wiki. To access the wiki click on the below question mark.</Label>
         </Field>
 </PluginConfig>

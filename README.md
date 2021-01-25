@@ -9,6 +9,12 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.3.1
+Released: 2021-01-25
+
+* Fixed bug preventing new "mode" state from being seen by Indigo
+* Fixed wiki URL
+
 ### Version 0.3.0
 Released: 2021-01-13
 
