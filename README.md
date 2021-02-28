@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.3.2
+Released: 2021-02-28
+
+* Fixed ability to create Tempest rapid wind UDP devices
+
 ### Version 0.3.1
 Released: 2021-01-25
 
