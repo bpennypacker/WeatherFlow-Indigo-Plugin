@@ -571,12 +571,15 @@ class Plugin(indigo.PluginBase):
     def getUDPDeviceList(self, filter="", valuesDict=None, typeId="", targetId=0):
         array = [ ]
 
+        filter_list = filter.split('|')
+
         if self.WFUDPWorker == None:
             return array
 
         for sn in self.WFUDPWorker.get_serial_numbers():
-            if sn.startswith(filter):
-                array.append((sn, sn))
+            for f in filter_list:
+                if sn.startswith(f):
+                    array.append((sn, sn))
 
         return array
 
