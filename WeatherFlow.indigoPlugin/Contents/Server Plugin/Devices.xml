@@ -599,7 +599,7 @@
         <ConfigUI>
             <Field type="menu" id="address" defaultValue="0">
                 <Label>Smart Weather SKY Device for Rapid Wind monitoring:</Label>
-                <List class="self" filter="SK" method="getUDPDeviceList" />
+                <List class="self" filter="SK|ST" method="getUDPDeviceList" />
             </Field>
             <Field type="menu" id="stateDisplay" Value="temperature">
                 <Label>State display:</Label>
