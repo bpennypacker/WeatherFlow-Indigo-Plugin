@@ -89,8 +89,8 @@ obs_tempest_map = {
     'lightning_strike_count':            15,
     'battery':                           16,
     'report_interval':                   17,
-    'rain_accumulated_final':            18,
-    'daily_rain_accumulation_final':     19,
+    'rain_accumulated_final':            19,
+    'daily_rain_accumulation_final':     20
 }
 
 rapid_wind_map = {
@@ -936,10 +936,10 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug("unknown precip type ({})".format(d['obs'][0][idx]))
             dev.updateStateOnServer('precipitation_type', pt)
 
-        # precipitation analysis type, index 20
-        idx = 20
+        # precipitation analysis type, index 21
+        idx = 21
         if len(d['obs'][0]) > idx:
-            if (last == None or last['obs'][0][20] != d['obs'][0][idx]) and d['obs'][0][idx] != None:
+            if (last == None or last['obs'][0][idx] != d['obs'][0][idx]) and d['obs'][0][idx] != None:
                 state = ['none', 'on', 'off']
                 if d['obs'][0][idx] < len(state):
                     pat = state[d['obs'][0][idx]]

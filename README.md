@@ -9,6 +9,11 @@ For more information on installing and using this plugin [see the wiki for the p
 
 ## Release history
 
+### Version 0.3.3
+Released: 2022-01-03
+
+* Fixed indexing of Tempest observations
+
 ### Version 0.3.2
 Released: 2021-02-28
 
