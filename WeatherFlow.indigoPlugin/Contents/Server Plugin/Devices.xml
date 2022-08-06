@@ -190,6 +190,7 @@
                         <Option value="none">None</Option>
                         <Option value="rain">Rain</Option>
                         <Option value="hail">Hail</Option>
+                        <Option value="rhmix">Rain/Hail Mix</Option>
                     </List>
                 </ValueType>
                 <TriggerLabel>Precipitation Type</TriggerLabel>
@@ -781,7 +782,7 @@
                         <Option value="none">None</Option>
                         <Option value="rain">Rain</Option>
                         <Option value="hail">Hail</Option>
-                        <Option value="mix">Rain/Hail Mix</Option>
+                        <Option value="rhmix">Rain/Hail Mix</Option>
                     </List>
                 </ValueType>
                 <TriggerLabel>Precipitation Type</TriggerLabel>
@@ -970,7 +971,7 @@
                         <Option value="none">None</Option>
                         <Option value="rain">Rain</Option>
                         <Option value="hail">Hail</Option>
-                        <Option value="mix">Rain/Hail Mix</Option>
+                        <Option value="rhmix">Rain/Hail Mix</Option>
                     </List>
                 </ValueType>
                 <TriggerLabel>Precipitation Type</TriggerLabel>
