@@ -1,18 +1,17 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
+#! /usr/bin/env python3
 ####################
 
 # Note the "indigo" module is automatically imported and made available inside
 # our global name space by the host process.
 # import indigo
 
-import os
+#import os
 import sys
 import time
 import json
 import requests
 import traceback
-import Queue
+import queue
 import threading
 import websocket
 import socket
@@ -417,7 +416,7 @@ class Plugin(indigo.PluginBase):
     ########################################
     def startup(self):
         self.logger.debug(u"startup called")
-        self.queue = Queue.Queue(maxsize=1000)
+        self.queue = queue.Queue(maxsize=1000)
 
     ########################################
     def shutdown(self):
@@ -717,7 +716,7 @@ class Plugin(indigo.PluginBase):
                 self._process_message(msgtype, mask, data)
                 self.sleep(0.1)
 
-            except Queue.Empty as e:
+            except queue.Empty as e:
                 self.sleep(0.5)
                 continue
 
@@ -811,7 +810,7 @@ class Plugin(indigo.PluginBase):
         if len(d['obs'][0]) > idx:
             if last == None or last['obs'][0][12] != d['obs'][0][idx]:
                 if d['obs'][0][idx] < len(precip_type):
-                    pt = precip_type[d['obs'][0][idx]]
+                    pt = precip_type[int(d['obs'][0][idx])]
                 else:
                     pt = "unknown"
                     self.logger.debug("unknown precip type ({})".format(d['obs'][0][idx]))
@@ -930,7 +929,7 @@ class Plugin(indigo.PluginBase):
         idx = 13
         if last == None or last['obs'][0][idx] != d['obs'][0][idx]:
             if d['obs'][0][idx] < len(precip_type):
-                pt = precip_type[d['obs'][0][idx]]
+                pt = precip_type[int(d['obs'][0][idx])]
             else:
                 pt = "unknown"
                 self.logger.debug("unknown precip type ({})".format(d['obs'][0][idx]))
