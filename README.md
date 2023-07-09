@@ -1,3 +1,6 @@
+# Notice
+For various personal reasons I am no longer able to support this Indigo plug-in (in part becuase I no longer use Indigo). If somebody is willing and able to take over ownership of this project I am more than happy to hand the reigns over.
+
 # WeatherFlow-Indigo-Plugin
 Indigo Plugin for obtaining weather data from WeatherFlow
 
